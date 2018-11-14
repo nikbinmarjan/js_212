@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "7e900521-e7d1-4fdf-ac63-66036eba8503",
+		"name": "js212",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get /questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"questions"
+					]
+				},
+				"description": "Request to get all questions"
+			},
+			"response": []
+		},
+		{
+			"name": "Get /questions by QuestionID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/questions/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"questions",
+						"100"
+					]
+				},
+				"description": "Get /questions by QuestionID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Answers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/answers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Answers by UserID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/answers/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answers",
+						"1000"
+					]
+				},
+				"description": "Get All Answers by UserID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All QuestionID that user Answered",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/answers/answered/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answers",
+						"answered",
+						"1000"
+					]
+				},
+				"description": "Get All QuestionID that user Answered"
+			},
+			"response": []
+		},
+		{
+			"name": "Post answers by UserID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "QuestionID",
+							"value": "102",
+							"type": "text"
+						},
+						{
+							"key": "UserID",
+							"value": "1001",
+							"type": "text"
+						},
+						{
+							"key": "Answers",
+							"value": "پیلاتز",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/answers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answers"
+					]
+				},
+				"description": "Post answers by userid"
+			},
+			"response": []
+		}
+	]
+}
