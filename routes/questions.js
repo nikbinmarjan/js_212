@@ -52,7 +52,7 @@ router.post('/', (req, res, next) => {
 });
 
 //@@@@@@@@@@@@@@************GetQuestionByID**********@@@@@@@@@@@@@@
-function getquestionsbyid(connection) {
+function getquestionsbyid(connection,req) {
   return new Promise(function (resolve, reject) {
     con.query(`SELECT * FROM Questions where QuestionID = ${req.params.questionID} `, function (err, result, fields) {
 
@@ -67,7 +67,7 @@ function getquestionsbyid(connection) {
   });
 };
   router.get('/:questionID', (req, res, next) => {
-    getquestionsbyid(con).then((result) => {
+    getquestionsbyid(con,req).then((result) => {
       res.json(result);
     }).catch((error) => {
       console.log(error);
