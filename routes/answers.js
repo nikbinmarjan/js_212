@@ -2,21 +2,32 @@ var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
 con = require('./connect')
+//****************GET All Answers***************** */
+function getallanswers(connection, req) {
+
+  return new Promise(function (resolve, reject) {
+    con.query(`SELECT * FROM Answers `, function (err, result, fields) {
+
+      if (err) { console.log(err); err.status = 500; res.send(err) }
+      else
+        result = [{ status: 200 }, ...result]
+      res.json(result);
+      console.log(result);
+
+    });
+  });
+}
 
 router.get('/', (req, res, next) => {
-  console.log(req.params.questionID);
-
-  con.query(`SELECT * FROM Answers `, function (err, result, fields) {
-    if (err) { console.log(err); err.status = 500; res.send(err) }
-    else
-      result = [{ status: 200 }, ...result]
+  getallanswers(con).then((result) => {
     res.json(result);
-    console.log(result);
-
+  }).catch((error) => {
+    console.log(error);
+    res.json(error);
   });
 });
 
-//*********************************** */
+//***************GEt Answers By UserID******************** */
 function answersbyuserid(connection, req) {
   return new Promise(function (resolve, reject) {
 
@@ -43,25 +54,9 @@ router.get('/:UserID', (req, res, next) => {
   });
 });
 
-
-
-
-
-// con.query(`SELECT * FROM Answers where UserID = ${req.params.UserID} `, function (err, result, fields) {
-//   if (err) { console.log(err); res.send(err) }
-//   else
-//     result = [{ status: 200 }, ...result]
-//   res.json(result);
-//   console.log(result);
-
-// });
-  
-      
-//   });
-
-router.get('/answered/:UserID', (req, res, next) => {
-  console.log(req.params.UserID);
-
+//********************Get Answered By UserID***************
+function getansweredbyuserid(con,req){
+  return new Promise(function (resolve, reject) {
   con.query(`SELECT QuestionID FROM Answers where UserID=${req.params.UserID}`, function (err, result, fields) {
     if (err) { console.log(err); err.status = 500; res.send(err) }
     else
@@ -69,13 +64,25 @@ router.get('/answered/:UserID', (req, res, next) => {
     result = [{ status: 200 }, ...result]
     res.json(arr);
     console.log(result);
+  });
+});
+};
+
+
+router.get('/answered/:UserID', (req, res, next) => {
+  console.log(req.params.UserID);
+  getansweredbyuserid(con, req).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    console.log(error);
+    res.json(error);
 
   });
 });
-
-
-router.post('/', (req, res, next) => {
-
+  
+//**************Post Ansswers ************
+  function postanswers(con,req){
+    return new Promise(function (resolve, reject) {
   con.query(`INSERT INTO Answers (QuestionID,UserID,Answers) values('${req.body.QuestionID}','${req.body.UserID}','${req.body.Answers}') `, function (err, result, fields) {
     if (err) { console.log(err); err.status = 500; res.send(err) }
     else
@@ -83,11 +90,21 @@ router.post('/', (req, res, next) => {
     res.json(req.body);
 
   });
+});
+};
 
+
+router.post('/', (req, res, next) => {
+  console.log(req.params.UserID);
+  postanswers(con, req).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    console.log(error);
+    res.json(error);
+
+  });
 });
 
+
 module.exports = router;
-
-
-
 

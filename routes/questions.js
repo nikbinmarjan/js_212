@@ -22,17 +22,20 @@ router.get('/', (req, res, next) => {
     res.json(result);
   }).catch((error) => {
     console.log(error);
+
     res.json(error);
 
   });
 });
 //@@@@@@@@@@@@@@************PostQuestion**********@@@@@@@@@@@@@@
-function postquestions(connection, req) {
+function postquestions(connection, body) {
   return new Promise(function (resolve, reject) {
-    con.query(`INSERT INTO Questions (QuestionsType,QuestionsContent) values('${req.body.QuestionsType}','${req.body.QuestionsContent}') `, function (err, result, fields) {
+    result=[];
+    con.query(`INSERT INTO questions (QuestionsType,QuestionsContent) values('${body.QuestionsType}','${body.QuestionsContent}') `, function (err, result, fields) {
+      console.log(body);
       if (err) { console.log(err); err.status = 500; reject(err) }
       else {
-        result = [{ status: 200 }, ...result]
+      result.status = 200 ;
         resolve(result);
         console.log(result);
       }
@@ -41,7 +44,8 @@ function postquestions(connection, req) {
 
 };
 router.post('/', (req, res, next) => {
-  postquestions(con, req).then((result) => {
+  console.log(req.body.Questions)
+  postquestions(con, req.body).then((result) => {
     res.json(result);
   }).catch((error) => {
     console.log(error);
